@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Efecto Parallax con Skrollr</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: white;
+            text-align: center;
+            box-shadow: rgba(0, 0, 0, .3) 0px 10px 10px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 24px;
+            padding: 30px;
+        }
+
+        p {
+            font-size: 24px;
+            background: rgba(255, 255, 255, .7);
+            padding: 30px;
+            width: 50%;
+            
+            /* Le aplicamo position relative para poder animar las propiedades de desplazamiento top, left, right y bottom. */
+            
+            position: relative;
+        }
+
+        section {
+            height: 90vh;
+            padding: 50px;
+            box-sizing: border-box;
+            
+            /* Escondemos el contenido por fuera de la caja para evitar que los párrafos animados generen scoll cuando las movemos por fuera de la ventana hacia la derecha. */
+            
+            overflow: hidden;
+        }
+
+        #uno {
+            background: url(imagenes/uno.jpg) no-repeat center top fixed;
+            background-size: cover;
+        }
+
+        #dos {
+            background: url(imagenes/dos.jpg) no-repeat center top fixed;
+            background-size: cover;
+        }
+
+        #tres {
+            background: url(imagenes/tres.jpg) no-repeat center top fixed;
+            background-size: cover;
+        }
+
+        #cuatro {
+            background: url(imagenes/cuatro.jpg) no-repeat center top fixed;
+            background-size: cover;
+        }
+
+        .pleno {
+            background: #636;
+            height: 50vh;
+        }
+        
+        #fin {
+            background: #636;
+            height: 50vh;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Efecto Parallax: fondos y etiquetas</h1>
+    </header>
+    
+    <!-- Lo mismo que hicimos con las secciones manejando una propiedad CSS para la imagen de fondo podemos hacerlo con las etiquetas de frente de nuestro documento. El concepto de aplicación es el mismo, lo que vamos a variar son las propiedades CSS que afectaremos para animar estas etiquetas. -->
+    
+    <section id="uno" 
+           data-center="background-position: center 0px;" 
+           data-top-bottom="background-position: center -100px;">
+           
+           <!-- El primer punto sucede cuando coincide el bottom de la caja con el center de la ventana. El segundo sucede cuando al top de la caja le faltan 43px para llegar al top de la ventana, entre ellos la caja no se modifica ya que se repite el valor de escala. El último punto sucede cuando coinciden el top de la caja con el top de la ventana.-->
+           
+           <p data-center-bottom="transform: scale(1);" 
+               data-43-top="transform: scale(1);"
+               data-top="transform: scale(0);">Contenido de la sección UNO</p>
+    </section>
+
+    <section class="pleno">
+        
+        <!-- Se puede animar cualquier propiedad CSS que tenga valores intermedios (al igual que las animaciones css). En este caso animamos la propiedad left. -->
+        
+        <p data-bottom="left: 0px;" 
+            data-top="left: 800px;">Contenido del pleno</p>
+    </section>
+
+    <section id="dos" data-center="background-position: center 0px;" 
+            data-top-bottom="background-position: center -100px;" 
+            data-bottom-top="background-position: center 100px;">
+
+        <!-- Ahora animamos la rotación de la caja. -->
+       
+        <p data-bottom-center="transform: rotate(0deg);" 
+            data-58-top="transform: rotate(360deg);">
+            Contenido de la sección DOS</p>
+    </section>
+
+    <section class="pleno">
+       
+        <!-- Si scrolleamos lentamente y observamos con detenimiento la animación de esta etiqueta, veremos que cuando coinciden los bordes inferiores (ventana/caja) aplica los 0px de left, al llegar al medio de la ventana llega a 300px de left y luego justo cuando su borde superior llega al superior de la ventana, vuelve a estar en 0px de left. -->
+        
+        <p data-bottom="left: 0px;" 
+            data-center="left: 300px;" 
+            data-top="left: 0px;">Contenido del pleno</p>
+    </section>
+
+    <section id="tres" data-center="background-position: center 0px;" 
+           data-top-bottom="background-position: center -200px;" 
+           data-bottom-top="background-position: center 200px;">
+           
+        <!-- Si bien la propiedad display no es animable (no hay valores intermedios entre none y block) podemos utilizarla solo para que una caja "aparezca". El segundo attr incluye un valor negativo de px que representa que el bottom de la caja "se pasó" 52px del bottom de la ventana. Allí pasamos el display a block (para hacer visible al párrafo) y le aplicamos la propiedad transform-origin no para animarla sino para que se aplique en ese momento (recordar que para animar no solo la propiedad debe ser animable sino que, además, se necesitan dos puntos de referencia de scroll, si hay uno solo para cualquier propiedad, veremos esa propiedad aplicada). Podemos aplicar la cantidad de propiedades CSS que sean necesarias para la animación en cada atributo. -->
+        
+        <p data-bottom="display: none;" 
+            data--52-bottom="display: block; transform-origin: left bottom; transform: skew(0deg);" 
+            data-top="transform: skew(45deg);">Contenido de la sección TRES</p>
+    </section>
+
+    <section class="pleno">
+       
+        <!-- Seguimos con los atributos combinados con px de distancia, recordando que los valores positivos significan que aún no se llegó a ese punto de referencia y los negativos, que se pasó. -->
+        
+        <p data--100-bottom="left: 0px;" 
+            data-100-top="left: 800px;">Contenido del pleno</p>
+    </section>
+
+    <section id="cuatro" data-center="background-position: center 0px;" 
+           data-top-bottom="background-position: center -200px;" 
+           data-bottom-top="background-position: center 200px;">
+           
+        <!-- Manejamos opacidad y escala. -->
+        
+        <p data-bottom-top="transform-origin: left bottom; opacity: 0; transform: scale(1);" 
+           data-center-top="opacity: 1; transform: scale(1.5);" 
+           data-center-bottom="opacity: 1; transform: scale(1.5);" 
+           data-top="opacity: 0; transform: scale(1);">Contenido de la sección CUATRO</p>
+    </section>
+
+    <section id="fin">
+       
+        <!-- Hacemos entrar a la etiqueta desde la derecha, para que no genere scroll la section tiene aplicada la propiedad overflow con valor hidden. En este caso utilizamos también un atributo que lleva un valor numérico pero acompañado por la letra p que hace referencia al porcentaje de alto de pantalla, en este caso, cuando falte un 10% para que se cumpla el center-top se aplica la propiedad css (cuando falta porque es positivo, si fuera data--10p-center-top, sería cuando se pasó un 10% de alto de la pantalla de esa condición).  -->
+        
+        <p data-bottom-top="left: 2000px;" 
+            data-10p-center-top="left: 0px;">FIN</p>
+    </section>
+
+    <script src="js/skrollr.js"></script>
+    <script>
+        var plugin=skrollr.init({forceHeight:false,render:function(data){console.log(data.curTop);}});
+    </script>
+</body>
+
+</html>

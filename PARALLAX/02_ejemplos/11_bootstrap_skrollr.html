@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bootstrap + Skrollr</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <style>
+        @media (min-width: 992px) {
+            .alto {
+                height: 100vh;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="container borde p-5 bg-secondary text-light">
+        <h1>Bootstrap + Skrollr</h1>        
+    </header>
+    <section class="container border" id="uno">
+        <div class="row justify-content-around alto align-items-xl-center">
+            <article class="col-lg-4 bg-white" data-anchor-target="#uno" data-center-top="transform: translate(-100vw)" data-top="transform: translate(0vw)">
+                <h2>Título del artículo</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non iste sed, a nulla enim aut porro temporibus beatae, dolor natus distinctio. Fugit nulla quis sed magni. Itaque saepe, veritatis temporibus.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non iste sed, a nulla enim aut porro temporibus beatae, dolor natus distinctio. Fugit nulla quis sed magni. Itaque saepe, veritatis temporibus.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non iste sed, a nulla enim aut porro temporibus beatae, dolor natus distinctio. Fugit nulla quis sed magni. Itaque saepe, veritatis temporibus.</p>
+            </article>
+            
+            <article class="col-lg-4 bg-danger text-white pt-1" data-anchor-target="#uno" data-start="transform: scale(0)" data-top="transform: scale(1)">
+                <h2>Título del artículo</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia fugit, nostrum, aspernatur accusantium delectus ducimus iste libero, quo et tenetur nesciunt ab! Ad, temporibus nostrum eos atque natus nihil maxime?</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia fugit, nostrum, aspernatur accusantium delectus ducimus iste libero, quo et tenetur nesciunt ab! Ad, temporibus nostrum eos atque natus nihil maxime?</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia fugit, nostrum, aspernatur accusantium delectus ducimus iste libero, quo et tenetur nesciunt ab! Ad, temporibus nostrum eos atque natus nihil maxime?</p>
+            </article>
+        </div>
+    </section>
+    <section class="container mark" data--10p-bottom-top="transform: translate(0px, 300px); opacity: 0" data-center-top="transform: translate(0px, 0px); opacity: 1">
+        <div class="row justify-content-center alto align-items-xl-center">
+            <article class="col-md col-lg-4">
+                <h2>Título del artículo</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non iste sed, a nulla enim aut porro temporibus beatae, dolor natus distinctio. Fugit nulla quis sed magni. Itaque saepe, veritatis temporibus.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non iste sed, a nulla enim aut porro temporibus beatae, dolor natus distinctio. Fugit nulla quis sed magni. Itaque saepe, veritatis temporibus.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non iste sed, a nulla enim aut porro temporibus beatae, dolor natus distinctio. Fugit nulla quis sed magni. Itaque saepe, veritatis temporibus.</p>
+            </article>
+            
+            <article class="col-md col-lg-4 ">
+                <h2>Título del artículo</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia fugit, nostrum, aspernatur accusantium delectus ducimus iste libero, quo et tenetur nesciunt ab! Ad, temporibus nostrum eos atque natus nihil maxime?</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia fugit, nostrum, aspernatur accusantium delectus ducimus iste libero, quo et tenetur nesciunt ab! Ad, temporibus nostrum eos atque natus nihil maxime?</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia fugit, nostrum, aspernatur accusantium delectus ducimus iste libero, quo et tenetur nesciunt ab! Ad, temporibus nostrum eos atque natus nihil maxime?</p>
+            </article>
+        </div>
+    </section>
+
+    <script src="js/jquery-3.5.1.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/skrollr.js"></script>
+
+    <script>
+        var mobile = 992;
+        var plugin=skrollr.init({forceHeight:false,render:function(data){console.log(data.curTop);}});$(window).resize(function(){redimensionar();});redimensionar();function redimensionar(){var anchoVentana=$(window).width();if(anchoVentana<=mobile-17||screen.width<=mobile){skrollr.init().destroy();}else{var plugin=skrollr.init({forceHeight: false,render: function(data) {console.log(data.curTop);}});}}
+    </script>
+</body>
+
+</html>

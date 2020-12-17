@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Efecto Parallax con Skrollr</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+    <!-- En el CSS externo se incluyen las media queries que modifican las imágenes de fondo en cada dispositivo, luego debajo se incluye el script donde se anula la aplicación del plugin en celulares. -->
+
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body>
+    <header id="arriba">
+        <h1>Efecto Parallax: desactiva plugin en mobile</h1>
+    </header>
+
+    <!-- Nada nuevo en los efectos que se aplican pero se agrega el cambio de imágenes desde CSS por media query (ver estilos.css) y la desactivación del plugin en la parte inferior del documento. -->
+
+    <section id="uno" data-10p-center="background-position: center 0px;" data-top-bottom="background-position: center -100px;">
+
+        <p data-0="left: 0px" data-100="left: 500px" data-300="left: -1000px">Contenido de la sección UNO</p>
+    </section>
+
+    <section class="pleno">
+        <p data-300="transform: scale(1);" data-500="transform: scale(0);">Contenido del pleno</p>
+    </section>
+
+    <section id="dos" data-center="background-position: center 0px;" data-top-bottom="background-position: center -100px;" data-bottom-top="background-position: center 100px;">
+
+        <p data-bottom="transform: rotate(0deg);" data-50-top="transform: rotate(360deg);">Contenido de la sección DOS</p>
+    </section>
+
+    <section class="pleno">
+        <p data-bottom="left: 0px;" data-center="left: 300px;" data-top="left: 0px;">Contenido del pleno</p>
+    </section>
+
+    <section id="tres" data-center="background-position: center 0px;" data-top-bottom="background-position: center -200px;" data-bottom-top="background-position: center 200px;">
+
+        <p data-bottom="transform-origin: left bottom; transform: skew(0deg, 0deg);" data-center="transform: skew(-45deg, 0deg);" data-top="transform: skew(0deg, 0deg);">Contenido de la sección TRES</p>
+    </section>
+
+    <section class="pleno">
+        <p data--100-bottom="left: 0px;" data-100-top="left: 800px;">Contenido del pleno</p>
+    </section>
+
+    <section id="cuatro" data-center="background-position: center 0px;" data-top-bottom="background-position: center -200px;" data-bottom-top="background-position: center 200px;">
+
+        <p class="fija" data-bottom-center="opacity: 0; transform: scale(1);" data-center="opacity: 1; transform: scale(1.5); top: 400px" data--100-center="top: 100px; transform: scale(1);" data-anchor-target="#cuatro">Contenido de la sección CUATRO</p>
+    </section>
+
+    <section class="pleno" id="fin">
+        <p data-bottom-top="left: 2000px;" data-bottom="left: 0px;" data-anchor-target="#fin">FIN</p>
+    </section>
+
+    <script src="js/jquery-3.5.1.js"></script>
+    <script src="js/skrollr.js"></script>
+
+    <!-- Además de la activación del plugin, se incluye el script para detenerlo en celulares. Se puede elegir a partir de qué tamaño de dispositivo hacia abajo se considera que el plugin se detenga por estar en mobile. Abajo se puede observar la línea:
+                var mobile= 992;
+    es decir que desde un tamaño de 992px hacia abajo se detiene el plugin, si se desea modificar esto a un tamaño de 768px, por ejemplo, hay que modificar el valor de esa línea, quedando:
+                var mobile= 768; 
+    Notar que DEBE CAMBIARSE SOLO EL NÚMERO, NO MODIFICAR NADA MÁS Y NO INCLUIR UNIDAD DE MEDIDA.-->
+
+    <script>
+        var mobile = 992;
+        var plugin=skrollr.init({forceHeight:false,render:function(data){console.log(data.curTop);}});$(window).resize(function(){redimensionar();});redimensionar();function redimensionar(){var anchoVentana=$(window).width();if(anchoVentana<=mobile-17||screen.width<=mobile){skrollr.init().destroy();}else{var plugin=skrollr.init({forceHeight: false,render: function(data) {console.log(data.curTop);}});}}
+    </script>
+</body>
+
+</html>

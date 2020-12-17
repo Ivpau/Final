@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Efecto Parallax con Skrollr</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: white;
+            text-align: center;
+            box-shadow: rgba(0, 0, 0, .3) 0px 10px 10px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 24px;
+            padding: 30px;
+        }
+
+        p {
+            font-size: 24px;
+            background: rgba(255, 255, 255, .7);
+            padding: 30px;
+            width: 50%;
+            position: relative;
+        }
+
+        section {
+            height: 80vh;
+            padding: 50px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        #uno {
+            background: url(imagenes/uno.jpg) no-repeat center top fixed;
+            background-size: cover;
+        }
+
+        #dos {
+            background: url(imagenes/dos.jpg) no-repeat center top fixed;
+            background-size: cover;
+        }
+
+        #tres {
+            background: url(imagenes/tres.jpg) no-repeat center top fixed;
+            background-size: cover;
+        }
+
+        #cuatro {
+            background: url(imagenes/cuatro.jpg) no-repeat center top fixed;
+            background-size: cover;
+        }
+
+        .pleno {
+            background: #636;
+            height: 50vh;
+        }
+
+        /* Al párrafo de la section cuatro le aplicamos esta clase para posicionarlo fija. */
+        
+        .fija {
+            position: fixed;
+            z-index: 200;
+            top: 400px;
+            left: 50px;
+            transform-origin: left bottom;
+        }
+
+        #fin {
+            background: #636;
+            height: 50vh;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Efecto Parallax: método absoluto o directo</h1>
+    </header>
+    
+    <!-- Una de las características más interesantes del plugin es que se pueden incluir atributos data que hagan referencia DIRECTAMENTE a una cantidad en px de scroll realizado (recordar que presionando F12 en el browser vemos en consola los valores scrolleados al instante). Y existe un atributo para cada valor de scroll que necesitemos NO SON FIJOS, sino que los personalizamos, simplemente debemos saber a cuantos px de scroll queremos aplicar un CSS y completamos el atributo data con ese valor. Por ejemplo, si necesitamos hacer una animación entre los 300px y 500px de scroll (recordar que el plugin siempre necesita dos puntos para interpolar el efecto) incluiremos los atributos: data-300 y data-500. Como así también si fuera a 728px de scroll, haremos el data-728 sin problemas (nunca se incluye la unidad de medida en el data). Lo único que debemos tener en cuenta es que el sroll total que tenga una página no siempre es el mismo sino que depende del alto de las cajas las cuales pueden tener un valor en porcentaje que dependerá del alto de la ventana o si crecen por su contenido que dependerá del ancho de la misma, por lo que las animaciones del final de la página podrían no suceder nunca si, por ejemplo, están programadas con un data-2800 y la página no llega a scrollear esa cantidad de px. Para evitar esta situación se aceptan también los atributos data-start (igual a data-0 es decir sin nada de scroll en la página) y data-end (sin importar la cantidad de px que se necesiten para llegar al final del scroll se dispara en esa situación), así como también aceptan una distancia desde el start o antes del end como con los demás atributos relativos, como por ejemplo, data-120-start (se scrollearon 120px desde el comienzo o scroll cero) o data-212-end (faltan 212px para llegar al final del scroll de la página). -->
+    
+    <section id="uno" 
+           data-center="background-position: center 0px;" 
+           data-top-bottom="background-position: center -100px;">
+
+        <!-- Entre los 0 y 300 px de scroll movemos la etiqueta en left negativo para sacarla de la pantalla (primero la movemos a la derecha hasta los 100px de scroll y luego hacia la izquierda). -->
+        
+        <p data-0="left: 0px" 
+            data-100="left: 500px" 
+            data-300="left: -1000px">Contenido de la sección UNO</p>
+    </section>
+
+    <section class="pleno">
+        
+        <!-- Se puede animar cualquier propiedad CSS que tenga valores intermedios (al igual que las animaciones CSS). En este caso es la escala entre los 300 y los 500 pixeles de scroll. -->
+        
+        <p data-300="transform: scale(1);" 
+            data-500="transform: scale(0);">Contenido del pleno</p>
+    </section>
+
+    <section id="dos" data-center="background-position: center 0px;" 
+            data-top-bottom="background-position: center -100px;" 
+            data-bottom-top="background-position: center 100px;">
+
+        <!-- Ahora animamos la rotación entre los 600 y los 850px de scroll (recordar que estos valores de scroll los podemos ir observando en la consola del browser para definir exactamente donde queremos que comience y que termine cada efecto). -->
+       
+        <p data-600="transform: rotate(0deg);" 
+            data-850="transform: rotate(360deg);">
+            Contenido de la sección DOS</p>
+    </section>
+
+    <section class="pleno">
+       
+        <!-- Seguimos armando atributos con valores de px scrolleados. -->
+        
+        <p data-978="left: 0px;" 
+            data-1216="left: 300px;" 
+            data-1474="left: 0px;">Contenido del pleno</p>
+    </section>
+
+    <section id="tres" data-center="background-position: center 0px;" 
+           data-top-bottom="background-position: center -200px;" 
+           data-bottom-top="background-position: center 200px;">
+           
+        <!-- Por supuesto que se pueden combinar los métodos e, incluso, utilizar el atributo data-anchor-target. -->
+        
+        <p data-bottom="left: 0px;" 
+            data-center="left: 300px;" 
+            data-top="left: 0px;" 
+            data-anchor-target="#tres">Contenido de la sección TRES</p>
+    </section>
+
+    <section class="pleno">
+       
+        <!-- O los que hacen referencia a la cantidad de px que faltan o se pasan de una relación ventana/caja del método anterior. -->
+        
+        <p data--100-bottom="left:0px;" 
+            data-100-top-center="left:800px;">Contenido del pleno</p>
+    </section>
+
+    <section id="cuatro" data-center="background-position: center 0px;" 
+           data-top-bottom="background-position: center -200px;" 
+           data-bottom-top="background-position: center 200px;">
+           
+        <!-- Incluso combinamos los métodos en la misma animación, una parte con px directos scrolleados y otra con el método relativo. -->
+        
+        <p class="fija" 
+            data-2407="opacity: 0; transform: scale(1);" 
+            data-2638="opacity: 1; transform: scale(1.5); top: 400px;" 
+            data--100-center="top: 50px; transform: scale(1);" 
+            data-anchor-target="#cuatro">Contenido de la sección CUATRO</p>
+    </section>
+
+    <section id="fin">
+       
+        <!-- Para que no falle la animación final independientemente de la cantidad máxima de scroll que tenga la página en distintos tamaños de dispositivos, utilizamos el atributo data-end.-->
+       
+        <p data-100-end="left: 2000px;" 
+            data-end="left: 0px;">FIN</p>
+    </section>
+
+    <script src="js/skrollr.js"></script>
+    <script>
+        var plugin=skrollr.init({forceHeight:false,render:function(data){console.log(data.curTop);}});
+    </script>
+</body>
+
+</html>

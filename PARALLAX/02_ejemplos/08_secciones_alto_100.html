@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Efecto Parallax con Skrollr</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: white;
+            text-align: center;
+            box-shadow: rgba(0, 0, 0, .3) 0px 10px 10px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 24px;
+            padding: 30px;
+        }
+
+        p {
+            font-size: 24px;
+            background: rgba(255, 255, 255, .7);
+            padding: 30px;
+        }
+
+        article {
+            height: 100vh;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 10px solid black;
+        }
+
+        #uno article {
+            background: tomato;
+        }
+
+        #dos article {
+            background: orange;
+        }
+        
+        /* Los articles tienen un alto de 100vh por lo que las section que los contienen también tienen ese alto. Ajustamos un alto de 400vh a la section 3 por lo que tendrá 4 veces más alto que el article que contiene. */
+        
+        #tres {
+            height: 400vh;
+        }
+        
+        /* Ahora le aplicamos position sticky al article dentro de la section 3, al ajustarle este position también debemos darle un valor de top para que funcione que será el desplazamiento con el que quede "pegado" al borde top de la ventana cuando llegue allí escrolleando, cuando su contenedor "salga" por arriba de la ventana, despega al artículo. Por lo tanto, queda como detenido hasta que terminan las animaciones de sus hijos, luego la section que la contiene la despega y sigue el scroll normal de la página. */
+
+        #tres article {
+            background: fuchsia;
+            position: sticky;
+            top: 0;
+        }
+
+        #cuatro article {
+            background: aqua;
+        }
+
+        #cinco article {
+            background: lightgreen;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Efecto Parallax</h1>
+    </header>
+
+    <section id="uno">
+        <article>
+            <p>UNO</p>
+        </article>
+    </section>
+
+    <section id="dos">
+        <article>
+            <p>DOS</p>
+        </article>
+    </section>
+
+    <section id="tres">
+        <article>
+           
+            <!-- Manejamos los atributos considerando valores negativos de porcentaje para controlar qué cantidad de la section salió por encima de la pantalla y así darles a cada párrafo su tiempo de animación. Esto lo podemos hacer porque utilizamos el atributo data-anchor-target sobre los párrafos para que las condiciones de scroll las cumpla la section con id tres. -->
+            
+            <p data-anchor-target="#tres"
+                data-top="transform: translate(-50vw, -50vh);"
+                data-top-center="transform: translate(0vw, 0vh);">TRES 1</p>
+            <p data-anchor-target="#tres"
+                data-top="transform: rotate(180deg);"
+                data--100-top="transform: rotate(180deg);"
+                data--300-top="transform: rotate(0deg);">TRES 2</p>
+            <p data-anchor-target="#tres"
+                data-top="transform: translate(50vw, 50vh);"
+                data-top-center="transform: translate(0vw, 0vh);">TRES 3</p>
+        </article>
+    </section>
+
+    <section id="cuatro">
+        <article>
+            <p>CUATRO</p>
+        </article>
+    </section>
+
+    <section id="cinco">
+        <article>
+            <p>CINCO</p>
+        </article>
+    </section>
+
+    <script src="js/skrollr.js"></script>
+
+    <script>
+        var plugin=skrollr.init({forceHeight:false,render:function(data){console.log(data.curTop);}});
+    </script>
+</body></html>

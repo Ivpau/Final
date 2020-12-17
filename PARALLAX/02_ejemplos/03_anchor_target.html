@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Efecto Parallax con Skrollr</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: white;
+            text-align: center;
+            box-shadow: rgba(0, 0, 0, .3) 0px 10px 10px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 24px;
+            padding: 30px;
+        }
+
+        p {
+            font-size: 24px;
+            background: rgba(255, 255, 255, .7);
+            padding: 30px;
+            width: 50%;
+            position: relative;
+        }
+
+        section {
+            height: 90vh;
+            padding: 50px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        #uno {
+            background: url(imagenes/uno.jpg) no-repeat center top fixed;
+            background-size: cover;
+        }
+
+        #dos {
+            background: url(imagenes/dos.jpg) no-repeat center top fixed;
+            background-size: cover;
+        }
+
+        #tres {
+            background: url(imagenes/tres.jpg) no-repeat center top fixed;
+            background-size: cover;
+        }
+
+        #cuatro {
+            background: url(imagenes/cuatro.jpg) no-repeat center top fixed;
+            background-size: cover;
+        }
+
+        .pleno {
+            background: #636;
+            height: 50vh;
+        }
+
+        /* Al párrafo de la section cuatro le aplicamos esta clase para posicionarlo fija. */
+        
+        .fija {
+            position: fixed;
+            z-index: 200;
+            top: 500px;
+            left: 50px;
+            transform-origin: left bottom;
+        }
+
+        #fin {
+            background: #636;
+            height: 50vh;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Efecto Parallax: anchor target</h1>
+    </header>
+    
+    <!-- Cuando le aplicamos los atributos que hacen referencia a una relación de posición entre la caja y la ventana, podemos hacer que el que cumpla esas condiciones sea una caja distinta a la que le aplicamos los atributos pero que las propiedades CSS se le sigan aplicando a la caja que contiene los atributos. Esto se hace agregando el atributo data-anchor-target que recibe como valor el id de la caja de referencia. En esta p la animación es la misma que la anterior, pero ahora usamos el atributo data-anchor-target, este atributo apunta al id de otra caja y establece que en vez de considerar a la propia etiqueta para disparar los atributos data de relación de posición ventana/caja, se toma como referencia otra caja distinta de la que se anima. -->
+    
+    <section id="uno" 
+           data-center="background-position: center 0px;" 
+           data-top-bottom="background-position: center -100px;">
+
+        <!-- El primer párrafo no tiene modificaciones con el ejemplo anterior. -->
+        
+        <p data-center-bottom="transform: scale(1);" 
+               data-43-top="transform: scale(1);"
+               data-top="transform: scale(0);">Contenido de la sección UNO</p>
+    </section>
+
+    <section class="pleno">
+        
+        <!-- Lo mismo que este párrafo ya que su contenedor no tiene id. -->
+        
+        <p data-bottom="left: 0px;" 
+            data-top="left: 800px;">Contenido del pleno</p>
+    </section>
+
+    <section id="dos" data-center="background-position: center 0px;" 
+            data-top-bottom="background-position: center -100px;" 
+            data-bottom-top="background-position: center 100px;">
+
+        <!-- En este párrafo se aplica el atributo de referencia, notar que ahora el que cumple las condiciones de scroll y relación ventana/caja es la section con id dos. -->
+       
+        <p data-bottom="transform: rotate(0deg);" 
+            data-center="transform: rotate(360deg);"
+            data-anchor-target="#dos">
+            Contenido de la sección DOS</p>
+    </section>
+
+    <section class="pleno">
+       
+        <!-- Este es igual ya que su contenedor no tiene id. -->
+        
+        <p data-bottom="left: 0px;" 
+            data-center="left: 300px;" 
+            data-top="left: 0px;">Contenido del pleno</p>
+    </section>
+
+    <section id="tres" data-center="background-position: center 0px;" 
+           data-top-bottom="background-position: center -200px;" 
+           data-bottom-top="background-position: center 200px;">
+           
+        <!-- Tomamos como referencia la section con id tres. -->
+        
+        <p data-bottom="left: 0px;" 
+            data-center="left: 300px;" 
+            data-top="left: 0px;" 
+            data-anchor-target="#tres">Contenido de la sección TRES</p>
+    </section>
+
+    <section class="pleno">
+       
+        <!-- Este es igual al anterior ya que su contenedor no tiene id. -->
+        
+        <p data--100-bottom="left: 0px;" 
+            data-100-top="left: 800px;">Contenido del pleno</p>
+    </section>
+
+    <section id="cuatro" data-center="background-position: center 0px;" 
+           data-top-bottom="background-position: center -200px;" 
+           data-bottom-top="background-position: center 200px;">
+           
+        <!-- En este caso vamos a poner la etiqueta fija a través de la clase pero solo la vamos a visualizar cuando la sección que la contiene se encuentre en pantalla. Por eso incluimos el atributo data-anchor-target que hace referencia a la sección que contiene a la etiqueta (ya que la etiqueta por estar fija no scrollea y, por lo tanto, no puede aplicar ningún atributo ligado ni a relación posción ventana/caja). -->
+        
+        <p class="fija" 
+            data-bottom-center="opacity: 0; transform: scale(1);" 
+            data-center="opacity: 1; transform: scale(1.5); top: 500px;" 
+            data--100-center="top: 100px; transform: scale(1);" 
+            data-anchor-target="#cuatro">Contenido de la sección CUATRO</p>
+    </section>
+
+    <section id="fin">
+       
+        <!-- En la última también utilizamos relación posición ventana/caja pero no de la p sino considerando su contenedor. -->
+        
+        <p data-bottom-top="left: 2000px;" 
+            data-bottom="left: 0px;" 
+            data-anchor-target="#fin">FIN</p>
+    </section>
+
+    <script src="js/skrollr.js"></script>
+    <script>
+        var plugin=skrollr.init({forceHeight:false,render:function(data){console.log(data.curTop);}});
+    </script>
+</body>
+
+</html>

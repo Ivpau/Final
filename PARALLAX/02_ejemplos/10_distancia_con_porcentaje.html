@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Efecto Parallax con Skrollr</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        div {
+            width: 100%;
+            height: 100vh;
+        }
+        
+        div:nth-of-type(odd){
+            background-color: azure;
+        }
+        
+        div:nth-of-type(even){
+            background-color: beige;
+        }
+
+        section {
+            width: 80%;
+            height: 100vh;
+            position: fixed;
+            left: 10%;
+            top: 0;
+            background: black;
+            overflow: hidden;
+        }
+        
+        p {            
+            position: absolute;
+            text-align: center;
+            font-size: 32px;
+            line-height: 100px;
+        }
+        
+        p:nth-of-type(1){            
+            background: black;
+            color: white;
+            width: 400px;
+            left: calc(50% - 200px);
+        }
+        p:nth-of-type(2){
+            width: 200px;
+            background: tomato;
+            color: white;
+        }
+        p:nth-of-type(3){
+            background: white;
+            width: 200px;
+        }
+        
+
+    </style>
+</head>
+
+<body>
+    <!-- Incluimos 10 divs para asegurarnos el scroll de la página que tienen el 100% del alto del viewport, es decir que se va a scrollear 9 veces el alto de la ventana del dispositivo en el que se vea la página (ya que el último div no va a salir por encima de la ventana por ser el último elemento del body sino que la va a ocupar completamente).-->
+    
+    <div id="caja1">1</div>
+    <div id="caja2">2</div>
+    <div id="caja3">3</div>
+    <div id="caja4">4</div>
+    <div id="caja5">5</div>
+    <div id="caja6">6</div>
+    <div id="caja7">7</div>
+    <div id="caja8">8</div>
+    <div id="caja9">9</div>
+    <div id="caja10">10</div>
+    
+    <!-- La section se maqueta fija dejando un margen a los costados solo para ver pasar los divs del fondo ya que la idea seria que ocupe toda la ventana y los divs no se vean, por lo que la página se anima al scrollear en vez de moverse para generar el efecto buscado. A la section le aplicamos los atributos start y end para modificarles el color de fondo utilizando la función hsl de CSS que recibe el tono con valor de grado (de la rueda cromática) que va desde 0 a 360 grados, por lo que desde esos valores lo hacemos interpolar para generar cambio constante de color mientras se va scrolleando la página (tambien vamos desaturando el color desde el 100% que es color pleno hasta 30% de color desaturando al 70%). -->
+    
+    <section data-start="background: hsl(0, 100%, 50%);" data-end="background: hsl(360, 30%, 50%);" >
+       
+        <!-- Tomamos como referencia del primer párrafo al primer div para que cumpla los atributos data que implican las situaciones de scroll. Cuando utilizamos un valor númerico seguido por la letra p estamos haciendo referencia a un PORCENTAJE del tamaño de alto de la ventana del dispositivo donde se renderice la página. Esos atributos que contienen un valor en porcentaje pueden ser utilizados tanto en el método relativo como en el absoluto. Por ejemplo, en este caso utilizamos el atributo data--50p-top-bottom que significa que se haya pasado el top-bottom (por tener signo negativo) en un 50% de alto de ventana (si vemos los divs de atrás esto será cuando le falte la mitad para salir al nro 2 ya que top-bottom sucede justo cuando acaba de salir completo el nro 1). Luego aplicamos el atributo data-300p lo que implica que se haya scrolleado un 300%, es decir, un scroll del tamaño de 3 altos de pantalla (cuando vemos que sale por completo el div nro 3 por encima de la pantalla ya que cada div tiene el 100vh). En el primer caso utilizamos el valor en porcentaje con atributos del método relativo y en éste ultimo, lo hacemos como atributo del metodo absoluto ya que son px exactos de scroll sin referencia a la ventana ni caja. Por último, utilizamos el atributo data-end que ocurre cuando la página llega al final del scroll sin importar cuántos px se tengan que scrollear para que esto suceda. -->
+        
+        <p data-anchor-target="#caja1" 
+            data-top="top: calc(0% - 200px);" 
+            data--50p-top-bottom="top: calc(100% - 100px);" 
+            data-300p="top: calc(100% - 100px);" 
+            data-end="top: calc(50% - 100px)">escuela</p>
+            
+        <!-- En los otros dos párrafos se utiliza un método similar que con el primero. IMPORTANTE: como se dijo, Skrollr necesita tener la misma unidad de medida entre los atributos data que interpole sino no funciona, en el caso de utilizar la función calc() debe incluirse en todos los atributos data para que la tome aunque en algún valor en particular no se necesite (por ejemplo, tenemos un valor con calc(0% - 0px) que sería lo mismo que pasar el valor 0, pero como el resto de los atributos sí necesitar calcular un valor hay que incluir la función aunque sea innecesaria). También hay que tener en cuenta que si el cálculo que realizamos en la función calc es una resta, en todas las funciones calc que se apliquen a la misma propiedad en los distintos atributos data también debe utilizarse el mismo operador matemático, no puede sumarse en uno y restarse en el siguiente ya que tampoco funciona (o sumamos o restamos en todos los atributos data). -->
+            
+        <p data-anchor-target="#caja2"
+            data-top="top: calc(100% - 50px); left: calc(0% - 200px);" 
+            data--50p-top-bottom="top: calc(0% - 0px); left: calc(100% - 200px);"
+            data-400p="top: calc(0% - 0px); left: calc(100% - 200px);"
+            data-600p="top: calc(100% - 100px); left: calc(100% - 200px);"
+            data-750p="top: calc(100% - 100px); left: calc(50% - 200px);"
+            data-end="top: calc(50% - 0px); left: calc(50% - 200px);">DA</p>
+            
+        <p data-anchor-target="#caja3"
+            data-top="top: calc(100% - 50px); left: calc(100% - 0px);" 
+            data--50p-top-bottom="top: calc(0% - 0px); left: calc(0% - 0px);"
+            data-300p="top: calc(0% + 0px); left: calc(0% - 0px);"
+            data-650p="top: calc(0% + 0px); left: calc(100% - 200px);"
+            data-850p="top: calc(50% + 100px); left: calc(100% - 200px);"
+            data-end="top: calc(50% + 0px); left: calc(50% - 0px);">VINCI</p>        
+    </section>
+    
+    <script src="js/skrollr.js"></script>
+    <script>
+        var plugin = skrollr.init({
+            forceHeight: false,
+            render: function(data) {
+                console.log(data.curTop);
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+

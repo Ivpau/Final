@@ -1,0 +1,6 @@
+$('.myCarousel').carousel({
+    ride: true
+
+})
+
+

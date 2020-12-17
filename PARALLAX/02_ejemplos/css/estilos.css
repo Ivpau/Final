@@ -1,0 +1,133 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: white;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, .3) 0px 10px 10px;
+    
+    /* Como detenemos el plugin en mobile para darle algún efecto especial a la página ponemos el header fixed y por debajo de las secciones para que la primera la tape cuando scrollee. */
+    position: fixed;
+    width: 100%;
+    z-index: -1;
+}
+
+h1 {
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+    padding: 6rem 0;
+}
+
+p {
+    font-size: 1.5rem;
+    background: rgba(255, 255, 255, .7);
+    padding: 1.875rem;
+    width: 300px;
+    position: relative;
+}
+
+section {
+    height: 90vh;
+    max-height: 2000px;
+    padding: 3.125em;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+#uno {
+    background: url(../imagenes/uno_cel.jpg) no-repeat center top fixed;
+    background-size: cover;
+    
+    /* A la primera sección le damos un margen superior del alto del header para que no lo tape inicialmente sino al momento de scrollear. */
+    
+    margin-top: 14.2rem;
+}
+
+#dos {
+    background: url(../imagenes/dos_cel.jpg) no-repeat center top fixed;
+    background-size: cover;
+}
+
+#tres {
+    background: url(../imagenes/tres_cel.jpg) no-repeat center top fixed;
+    background-size: cover;
+}
+
+#cuatro {
+    background: url(../imagenes/cuatro_cel.jpg) no-repeat center top fixed;
+    background-size: cover;
+}
+
+.pleno {
+    background: #636;
+    height: 50vh;
+}
+
+@media screen and (min-width: 576px) {
+    #uno {
+        background: url(../imagenes/uno_tab.jpg) no-repeat center top fixed;
+        background-size: cover;
+    }
+
+    #dos {
+        background: url(../imagenes/dos_tab.jpg) no-repeat center top fixed;
+        background-size: cover;
+    }
+
+    #tres {
+        background: url(../imagenes/tres_tab.jpg) no-repeat center top fixed;
+        background-size: cover;
+    }
+
+    #cuatro {
+        background: url(../imagenes/cuatro_tab.jpg) no-repeat center top fixed;
+        background-size: cover;
+    }
+
+}
+
+@media screen and (min-width: 992px) {
+    
+    /* En pc quitamos el fixed del header y el margin-top de la primera section, lo pasamos a relative y aumentamos el z-index solo para que la sombra se vea sobre la primera section. También reducimos los paddings verticales de la h1 que agregamos en mobile para darle mayor presencia al efecto del header. */
+    
+    header {
+        position: relative;
+        z-index: 10;
+    }
+    
+    h1 {
+        padding: 20px 0;
+    }
+    
+    #uno {
+        background: url(../imagenes/uno.jpg) no-repeat center top fixed;
+        background-size: cover;
+        margin-top: 0;
+    }
+
+    #dos {
+        background: url(../imagenes/dos.jpg) no-repeat center top fixed;
+        background-size: cover;
+    }
+
+    #tres {
+        background: url(../imagenes/tres.jpg) no-repeat center top fixed;
+        background-size: cover;
+    }
+
+    #cuatro {
+        background: url(../imagenes/cuatro.jpg) no-repeat center top fixed;
+        background-size: cover;
+    }
+    
+    /* Agregamos la clase fija solo en pc ya que la usamos para animar con skrollr el párrafo de la sección cuatro. */
+
+    .fija {
+        position: fixed;
+        top: 400px;
+        left: 100px;
+    }
+
+}

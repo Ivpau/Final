@@ -1,0 +1,101 @@
+#header{
+    background-color: black;
+    height: 200px;
+}
+.imgFondo{
+    height: 90vh;
+    padding: 50px;
+    box-sizing: border-box;
+    background-color: aqua;
+    background: url('/img/dead_fondo.jpg');
+}
+#idBody{
+    background-image: url('https://static-cse.canva.com/blob/218444/Rainbow-Gradient-Pink-and-Purple-Zoom-Virtual-Background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.containerTitle{
+    position:relative;
+    text-align: center;
+    color: black;
+}
+#altura{
+    height: 200px;
+    overflow: hidden;
+}
+.centered{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+}
+.containerSection{
+    background-color: antiquewhite;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 20px;
+    padding-bottom: 20PX;
+}
+.imgSection{
+    overflow: hidden;
+}
+.imgCarousel{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 200px;
+    border-radius: 5px;
+}
+.containerGeneral{
+    padding: 10px 10px 10px 10px;
+}
+.contenedor{
+    background: rgba(255, 255, 255, 0.5);
+    overflow: hidden;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+.border{
+    border: 1px solid #CCCCCC!important;
+    border-radius: 10px!important;
+}
+.color{
+    overflow: hidden;
+    margin-bottom: auto;
+    margin-top: auto;
+}
+.imagenSeccion{
+    margin-left: -20px;
+    overflow: hidden;
+}
+#sectionImagen{
+    height: 200px;
+    padding; 0;
+    border: 5px;
+    position: relative;
+}
+.tarjeta{
+    border: none;
+    padding: 0 auto;
+    background-color: transparent;   
+}
+.card-body{
+    margin: 20px;
+}
+#footer{
+    background-color: #B94CD1;
+    padding: 25px;
+}
+.redes{
+    height: 50px;
+}
+.textFooter{
+    color: white;
+}
+
+
+
+
+
+

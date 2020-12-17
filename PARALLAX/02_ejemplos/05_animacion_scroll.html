@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Efecto Parallax con Skrollr</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: white;
+            text-align: center;
+            box-shadow: rgba(0, 0, 0, .3) 0px 10px 10px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 24px;
+            padding: 30px;
+        }
+
+        p {
+            font-size: 24px;
+            background: rgba(255, 255, 255, .7);
+            padding: 30px;
+            width: 50%;
+            position: relative;
+        }
+
+        section {
+            height: 90vh;
+            max-height: 2000px;
+            padding: 50px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        #uno {
+            background: url(imagenes/uno.jpg) no-repeat center top fixed;
+            background-size: cover;
+        }
+
+        #dos {
+            background: url(imagenes/dos.jpg) no-repeat center top fixed;
+            background-size: cover;
+        }
+
+        #tres {
+            background: url(imagenes/tres.jpg) no-repeat center top fixed;
+            background-size: cover;
+        }
+
+        #cuatro {
+            background: url(imagenes/cuatro.jpg) no-repeat center top fixed;
+            background-size: cover;
+        }
+
+        .pleno {
+            background: #636;
+            height: 50vh;
+        }
+
+        .fija {
+            position: fixed;
+            z-index: 2;
+            top: 400px;
+            left: 50px;
+            transform-origin: left bottom;
+        }
+
+        #fin {
+            background: #636;
+            height: 50vh;
+        }
+
+        /* Agregamos el formato al botón subir. Le damos un z-index alto para que no quede nunca tapado por el párrafo. */
+
+        section a {
+            text-decoration: none;
+            padding: 20px;
+            background: rgba(255, 0, 255, .5);
+            color: white;
+            border-radius: 8px;
+            box-shadow: rgba(0, 0, 0, .3) 5px 5px 10px;
+            position: relative;
+            top: 50px;
+            z-index: 1000;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header id="arriba">
+       
+        <!-- Las animaciones de los párrafos son casi las mismas que en los ejemplos anteriores, se incluye la h1 como vínculo ancla para ver esas animaciones ligadas al suavizado del scroll. -->
+        
+        <h1>
+            <a href="#fin" 
+                data-ancla="true"
+                data-tiempo="10000">Efecto Parallax: con animación de scroll</a>
+        </h1>
+    </header>
+
+    <section id="uno" 
+           data-center="background-position: center 0px;" 
+           data-top-bottom="background-position: center -100px;">
+        
+        <p data-0="left: 0px" 
+            data-100="left: 500px" 
+            data-300="left: -1000px">Contenido de la sección UNO</p>       
+    </section>
+
+    <section class="pleno">
+        <p data-300="transform: scale(1);" 
+            data-500="transform: scale(0);">Contenido de la sección</p>
+    </section>
+
+    <section id="dos" data-center="background-position: center 0px;"     
+            data-top-bottom="background-position: center -100px;" 
+            data-bottom-top="background-position: center 100px;">
+
+        <p data-bottom="transform: rotate(0deg);" 
+            data-50-top="transform: rotate(360deg);">Contenido de la sección DOS</p>        
+    </section>
+
+    <section class="pleno">
+        <p data-bottom="left: 0px;" 
+            data-center="left: 300px;" 
+            data-top="left: 0px;">Contenido de la sección</p>
+    </section>
+
+    <section id="tres" data-center="background-position: center 0px;" 
+           data-top-bottom="background-position: center -200px;" 
+           data-bottom-top="background-position: center 200px;">
+           
+        <!-- Cambiamos el origen de transformación solo en el primer atributo ya que no lo queremos animar sino cambiar su valor. -->
+        
+        <p data-bottom="transform-origin: left bottom; 
+                        transform: skew(0deg, 0deg);" 
+            data-center="transform: skew(-45deg, 0deg);" 
+            data-top="transform: skew(0deg, 0deg);">Contenido de la sección TRES</p>
+    </section>
+
+    <section class="pleno">
+        <p data--100-bottom="left: 0px;" 
+            data-100-top="left: 800px;">Contenido de la sección</p>
+    </section>
+
+    <section id="cuatro" data-center="background-position: center 0px;" 
+           data-top-bottom="background-position: center -200px;" 
+           data-bottom-top="background-position: center 200px;">
+           
+        <p class="fija" 
+            data-bottom-center="opacity: 0; transform: scale(1);" 
+            data-center="opacity: 1; transform: scale(1.5); top: 400px;" 
+            data--100-center="top: 100px; transform: scale(1);" 
+            data-anchor-target="#cuatro">Contenido de la sección CUATRO</p>
+    </section>
+
+    <section id="fin">
+       
+        <a href="#arriba" data-ancla="true" data-tiempo="10000">SUBIR</a>
+        
+        <p data-bottom-top="left: 2000px;" 
+            data-bottom="left: 120px;" 
+            data-anchor-target="#fin">FIN</p>
+    </section>
+    
+    <!-- En el caso de skrollr no es necesario linkearlo por debajo de jQuery ya que no está programado con ese framework (aunque si lo linkeamos por debajo funciona igual sin problemas). -->
+
+    <script src="js/skrollr.js"></script>
+    <script src="js/jquery-3.5.1.js"></script>
+
+    <!-- Siempre por debajo de la etiqueta script que linkea jQuery, linkeamos el js que agrega la funcionalidad de animación de scroll (la misma que utilizamos en ejemplos de Bootstrap). -->
+
+    <script src="js/animaScroll.js"></script>
+    
+    <script>
+        var plugin=skrollr.init({forceHeight:false,render:function(data){console.log(data.curTop);}});
+    </script>
+</body>
+
+</html>
